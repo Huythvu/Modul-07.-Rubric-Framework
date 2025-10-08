@@ -9,5 +9,4 @@ import ClimateCard from './components/climateCard.vue'
 </template>
 
 <style scoped>
-
 </style>
