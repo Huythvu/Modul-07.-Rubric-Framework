@@ -1,14 +1,17 @@
 <script setup>
+// Import af ref fra Vue og data fra min climateData.js fil
 import { ref } from 'vue'
 import { climateData } from '../data/climateData.js'
 
+// Variabel til at holde styr på cardets state false alle lukket og hvis et id er valgt er det åbent (id = 2 så er card med id 2 åbent)
 let openId = ref(false)
+// Her laves der en toggle funktion som skifter state når der klikkes på cardet
+// Der tjekkes om openId er lig med stateId (hvilket betyder der er et open card) så sættes openId til false hvilket lukker cardet.
+// Og omvendt hvis de ikke matcher så sættes openId til stateId hvilket åbner det valgte card.
 const toggle = (stateId) => {
   if (openId.value === stateId) {
-    // clicked the one that’s already open → close it
     openId.value = false
   } else {
-    // clicked a different one → open that one
     openId.value = stateId
   }
 }
@@ -16,20 +19,28 @@ const toggle = (stateId) => {
 </script>
 
 <template>
-    <article v-for="climateData in climateData" :key="climateData.id">
-        <div class="cardContainer" v-if="openId === climateData.id">
-            <div class="contentTitle hover" @click="toggle(climateData.id)">
-                <h3>{{ climateData.title }}</h3>
+    <!-- Vi kører en v-for loop over climateData -->
+    <article v-for="data in climateData" :key="data.id">
+        <!-- Her bruges der en if statement der tjekker om openId er lig med data.id og viser alt content af cardet hvis opfyldt condition. -->
+        <div class="cardContainer" v-if="openId === data.id">
+            <!-- Her bruges der en click event til at toggle cardet, vi kigger på hvilken data.id det er og sender det til toggle funktionen -->
+            <div class="contentTitle hover" @click="toggle(data.id)">
+                <!-- Her vises titlen på cardet gennem reference -->
+                <h3>{{ data.title }}</h3>
+                <!-- Ikon fra google icons -->
                 <span class="material-symbols-outlined">remove</span>
             </div>
             <div class="contentText">
-                <img :src="climateData.img" alt="">
-                <p v-for="description in climateData.description" :key="description">{{ description }}</p>
+                <!-- Her bruges der forkortelsen : for v-bind der binder data.img til src attributten -->
+                <img :src="data.img" alt="">
+                <!-- Her bruges en v-for loop fordi min data.description er et array af text-->
+                <p v-for="description in data.description" :key="description">{{ description }}</p>
             </div>
         </div>
+        <!-- Her bruges der en else statement til at vise det lukkede state af cardet -->
         <div class="cardContainer" v-else>
-            <div class="contentTitle hover" @click="toggle(climateData.id)">
-                <h3>{{ climateData.title }}</h3>
+            <div class="contentTitle hover" @click="toggle(data.id)">
+                <h3>{{ data.title }}</h3>
                 <span class="material-symbols-outlined">add</span>
             </div>
         </div>
