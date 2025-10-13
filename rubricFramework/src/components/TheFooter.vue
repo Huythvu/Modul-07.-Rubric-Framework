@@ -4,7 +4,7 @@
 
 <template>
     <footer>
-       <p>&copy; 2023 Better Climate EU</p>
+        <p>&copy; 2025 Better Climate EU</p>
     </footer>
 </template>
 
