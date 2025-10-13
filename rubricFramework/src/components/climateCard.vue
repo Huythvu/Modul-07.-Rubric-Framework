@@ -56,6 +56,7 @@ article{
     width: 40vw;
     border: 1px solid black;
     margin: 10px;
+    background-color: white;
 
     display: flex;
     flex-direction: column;
